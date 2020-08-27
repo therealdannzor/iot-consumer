@@ -80,7 +80,7 @@ public class UtilTest {
 	}
 
 	// mockGoodStream contains an array of pairs (timestamp, delta). The first pair is assumed to be the message
-	// after Ping and the last pair is the Pong message, i.e. [timestamp, 0]. 
+	// after Ping.
 	private Log mockGoodStream(int pingTimestamp, double[][] sequence, int pongTimestamp) {
 		Log log = new Log();
 		Message init = new Message("Ping", 0);
