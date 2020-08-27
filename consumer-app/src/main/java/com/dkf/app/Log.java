@@ -46,4 +46,8 @@ public class Log
 	public boolean isEmpty() {
 		return tmap.isEmpty();
 	}
+
+	public void delete(long key) {
+		tmap.remove(key);
+	}
 }
