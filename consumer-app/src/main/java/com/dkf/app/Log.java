@@ -42,4 +42,8 @@ public class Log
 	public Set<Long> getTimestampsTo(long toKey) {
 		return tmap.headMap(toKey).keySet();
 	}
+
+	public boolean isEmpty() {
+		return tmap.isEmpty();
+	}
 }
