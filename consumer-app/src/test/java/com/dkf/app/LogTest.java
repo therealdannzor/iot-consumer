@@ -111,4 +111,32 @@ public class LogTest
 		assertEquals(expectedRange, actualRange); 
 	}
 
+	@Test
+	public void testIsEmpty() {
+		Log log = new Log();
+
+		boolean expected = true;
+		boolean actual = log.isEmpty();
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testDeleteKey() {
+		Log log = new Log();
+		log.addMessage(1, VALID_MESSAGE);
+		log.addMessage(2, VALID_MESSAGE);
+		log.addMessage(3, VALID_MESSAGE);
+		log.addMessage(4, VALID_MESSAGE);
+		log.addMessage(5, VALID_MESSAGE);
+
+		log.delete(2);
+		log.delete(4);
+
+		String expected = "[1, 3, 5]";
+		String actual = log.getAllTimestamps().toString();
+
+		assertEquals(expected, actual);
+	}
+
 }
