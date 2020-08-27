@@ -6,7 +6,7 @@ public class Message {
 
 	public Message(String type, double delta) {
 		// type must be of valid type and delta within valid range
-		if (type == "Ping" || type == "Pong" || type == "Delta"  && delta >= 0.0 && delta <= 1.0) {
+		if (type == "Ping" || type == "Pong" || type == "Delta"  && delta >= -1.0 && delta <= 1.0) {
 			this.type = type;
 			this.delta = delta;
 		} else {
