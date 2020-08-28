@@ -15,9 +15,7 @@ public class UtilTest {
 	@Test
     public void testCalculateOneHourFullPower()
     {
-		// corresponds to two messages: 
-		// 1: Message("Delta", 1) 
-		// 2: Message("Pong", 0);
+		// corresponds to timestamp=1 and delta=1.0. This array is assumed to only contain Delta messages.
 		double[][] input = {{1, 1.0}};
 		// add three messages in total to Log object:
 		// 1: log.addMessage(0, Message("Ping", 0))
