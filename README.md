@@ -2,6 +2,9 @@
 
 A service to estimate the power consumption of an IoT device. The device being monitored is assumed to consume 10W when fully utilised and has a linear behaviour.  
 
+### Design
+This solution has a **modular** implementation in mind to allow for more **granular tests**. In addition, it solves the problems of unordered messages by using an **sorted data structure** which amortises the cost of sorting as the message set grows. This solution contains the most basic validation but is designed for future flexibility based on firm foundations.
+
 ### Background
 
 The service receives a stream of messages from an IoT device. Each message contains a unix timestamp and a message. There are three message types:
@@ -11,7 +14,7 @@ The service receives a stream of messages from an IoT device. Each message conta
 
 ### Limitations
 
-Since we use unreliable wireless access, messages can be duplicated, lost, and received out of order. The solution needs to handle cases like that.
+Since we assume unreliable wireless access, messages can be duplicated and received out of order. The solution needs to handle cases like that.
 
 ### Examples
 
