@@ -79,6 +79,37 @@ public class UtilTest {
 		assertEquals(expected, actual, DIFF);
 	}
 
+	@Test
+	public void testValidStreamIOButInvalidMessage() {
+		Log log = new Log();
+		Message inv = new Message("XYZ", 0.31415);
+		log.addMessage(0, new Message("Ping", 0));
+		log.addMessage(1, inv);
+		log.addMessage(2, inv);
+		log.addMessage(3, new Message("Pong", 0));
+
+		double expected = 0.0;
+		double actual = Util.calculateTotal(log);
+
+		assertEquals(expected, actual, DIFF);
+	}
+
+	@Test
+	public void testInvalidStreamIO() {
+		Log log = new Log();
+		Message invalidOpen = new Message("P!ng", 0);
+		Message msg = new Message("Delta", 0.5);
+		Message invalidClose = new Message("P0ng", 0);
+		log.addMessage(0, invalidOpen);
+		log.addMessage(1, msg);
+		log.addMessage(2, invalidClose);
+
+		double expected = 0.0;
+		double actual = Util.calculateTotal(log);
+
+		assertEquals(expected, actual, DIFF);
+	}
+
 	// mockGoodStream contains an array of pairs (timestamp, delta). The first pair is assumed to be the message
 	// after Ping.
 	private Log mockGoodStream(int pingTimestamp, double[][] sequence, int pongTimestamp) {
