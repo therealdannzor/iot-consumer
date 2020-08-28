@@ -50,4 +50,8 @@ public class Log
 	public void delete(long key) {
 		tmap.remove(key);
 	}
+
+	public void deleteTo(long k) {
+		tmap.keySet().removeIf(key -> key <= k);
+	}
 }
