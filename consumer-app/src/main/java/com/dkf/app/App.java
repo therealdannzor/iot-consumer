@@ -1,6 +1,7 @@
 package com.dkf.app;
 
 import java.util.Scanner;
+import java.util.concurrent.Semaphore;
 
 import com.dkf.app.Log;
 import com.dkf.app.Util;
@@ -36,10 +37,25 @@ public class App
 			// add Message to mapping
 			history.addMessage(cmds.Timestamp(), msg);
 
+			// prevent race conditions when we calculate energy consumption and purge the cache
+			final Semaphore mutex = new Semaphore(1);
+
+			// if we receive an end of stream signal
 			if (cmds.message.equals("Pong")) {
-				double energyConsumption = Util.calculateTotal(history);
-				Util.print(energyConsumption);
+				try {
+					// lock to calculate the consumption so far
+					mutex.acquire();
+					double energyConsumption = Util.calculateTotal(history);
+					Util.print(energyConsumption);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} finally {
+					// after the calculations are done we remove stale data from RAM
+					mutex.release();
+					history.deleteTo(cmds.Timestamp());
+				}
 			}
+
     	}
 		sc.close();
 	}
