@@ -124,16 +124,44 @@ public class LogTest
 	@Test
 	public void testDeleteKey() {
 		Log log = new Log();
-		log.addMessage(1, VALID_MESSAGE);
-		log.addMessage(2, VALID_MESSAGE);
-		log.addMessage(3, VALID_MESSAGE);
-		log.addMessage(4, VALID_MESSAGE);
-		log.addMessage(5, VALID_MESSAGE);
+		for (int i=1; i<6; i++) {
+			log.addMessage(i, VALID_MESSAGE);
+		}
 
 		log.delete(2);
 		log.delete(4);
 
 		String expected = "[1, 3, 5]";
+		String actual = log.getAllTimestamps().toString();
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testDeleteToKey() {
+		Log log = new Log();
+		for (int i=1; i<6; i++) {
+			log.addMessage(i, VALID_MESSAGE);
+		}
+
+		log.deleteTo(3);
+
+		String expected = "[4, 5]";
+		String actual = log.getAllTimestamps().toString();
+
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testDeleteToKeyMissingKeyNoEffect() {
+		Log log = new Log();
+		for (int i=4; i<9; i++) {
+			log.addMessage(i, VALID_MESSAGE);
+		}
+
+		log.deleteTo(3);
+
+		String expected = "[4, 5, 6, 7, 8]";
 		String actual = log.getAllTimestamps().toString();
 
 		assertEquals(expected, actual);
