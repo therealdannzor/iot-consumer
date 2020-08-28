@@ -14,16 +14,16 @@ public final class Util {
 		Long currTime = log.getFirstTimestamp();
 		// check that it is of type Ping
 		String firstType = log.getMessage(currTime).getType();
-		if (firstType != "Ping") {
+		if (firstType.compareTo("Ping") != 0) {
 			return zero;
 		}
-		// remove Ping message because it is not an information-bearer of energy consumption like the rest
+		// remove Ping message because it is not an information-bearer of energy consumption like the rest:
+		// the first message never contains an adjustment or symbolises the end of a period of consumption
 		log.delete(currTime);
 
 		double totalEnergy = 0.0;
 		double currDelta = 0.0;
-		//Long lastTime;
-		for (long ts : log.getAllTimestamps()) {	
+		for (long ts : log.getAllTimestamps()) {
 			// determine the last two timestamps
 			Long lastTime = currTime;
 			currTime = ts;
@@ -59,6 +59,10 @@ public final class Util {
 		} else {
 			return MIN_LEVEL;
 		}
+	}
+
+	public static void print(double consumption) {
+		System.out.println("Estimate : " + Double.toString(consumption) + " Wh");
 	}
 }
 	
