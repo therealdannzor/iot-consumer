@@ -29,8 +29,6 @@ public class UtilTest {
 		double actual = Util.calculateTotal(log);
 
 		assertEquals(expected, actual, DIFF);
-		
-		System.out.println("Done!");
     }
 
 	@Test

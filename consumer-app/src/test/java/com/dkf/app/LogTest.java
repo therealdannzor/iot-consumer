@@ -93,11 +93,9 @@ public class LogTest
 	@Test 
 	public void testFirstLastAndUpToTimestamps() {
 		Log log = new Log(); 
-		log.addMessage(1, VALID_MESSAGE);
-		log.addMessage(2, VALID_MESSAGE);
-		log.addMessage(3, VALID_MESSAGE);
-		log.addMessage(4, VALID_MESSAGE);
-		log.addMessage(5, VALID_MESSAGE);
+		for (int i=1; i<6; i++) {
+			log.addMessage(i, VALID_MESSAGE);
+		}
 
 		long expectedFirst = 1;
 		long actualFirst = log.getFirstTimestamp();
