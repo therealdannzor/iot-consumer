@@ -15,8 +15,6 @@ public class App
     public static void main( String[] args )
     {
 		Log history = new Log();
-
-
 		Scanner sc = new Scanner(System.in);
 		sc.useDelimiter("\\n");
 
